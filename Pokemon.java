@@ -25,4 +25,20 @@ public class Pokemon {
         }
     }
 
+    public void learnSkill(String skillName, int attackPower, int energyCost){
+        this.skill = new Skills(skillName, attackPower, energyCost);
+    }
+
+    public void forgetSkill(){
+        this.skill = new Skills("", 0,0);
+    }
+
+    public void checkSkill(){
+        if(this.skill.skillName != ""){
+            System.out.println("I know this skill " + skill.skillName);
+        }
+        else System.out.println("I don't know any skill ");
+    }
+    public void rest(){}
+
 }
