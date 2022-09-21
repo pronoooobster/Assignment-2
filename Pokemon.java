@@ -1,3 +1,5 @@
+
+
 public class Pokemon {
                                                 // 0 - Fire
                                                 // 1 - Water
