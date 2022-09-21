@@ -1,3 +1,4 @@
-public enum Types {
-    FIRE, WATER, GRASS, NORMAL;
+public enum Types{
+    FIRE,WATER,GRASS,NORMAL;
 }
+
