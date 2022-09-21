@@ -1,7 +1,7 @@
 public class Skills{
-    public String skillName;
-    public int attackPower;
-    public int energyCost;
+    public final String skillName;
+    public final int attackPower;
+    public final int energyCost;
 
     Skills(String skillName, int attackPower, int energyCost) {
         this.skillName = skillName;

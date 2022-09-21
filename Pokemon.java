@@ -3,8 +3,9 @@ public class Pokemon {
                                                 // 1 - Water
                                                 // 2 - Grass
                                                 // 3 - Normal
-    String name;
-    int MAX_HP, type, ep, hp;
+    public String name;
+    final int MAX_HP, type;
+    public int ep, hp;
     Skills skill;
                                                     // the default constructor
     public Pokemon(String name, int MAX_HP, int type) {
