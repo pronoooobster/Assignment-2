@@ -1,21 +1,26 @@
-0public class Pokemon {
+public class Pokemon {
+                                                // 0 - Fire
+                                                // 1 - Water
+                                                // 2 - Grass
+                                                // 3 - Normal
     String name;
     int MAX_HP, type, ep, hp;
     Skills skill;
                                                     // the default constructor
-    Pokemon(String name, int MAX_HP, int type) {
+    public Pokemon(String name, int MAX_HP, int type) {
         ep = 100;
         hp = MAX_HP;
         this.name = name;
         this.MAX_HP = MAX_HP;
         this.type = type;
+        this.skill = new Skills();
     }
-
+                                                                // convert a pokemon to a string (for output)
     public String toString() {
-        if(skill.name != "") {
-
+        if(skill.skillName != "") {
+            return name + " (" + Types.values()[type].name().toLowerCase() + "). Knows " + skill.skillName + " - AP: " + skill.attackPower + " EC: " + skill.energyCost;
         } else {
-            return "No skills learned: \"" + name + " (" + Types.values()[type] + ")\"";
+            return name + " (" + Types.values()[type].name().toLowerCase() + ")";
         }
     }
 
