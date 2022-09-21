@@ -12,7 +12,7 @@ public class Main {
         poke1.checkSkill();
         poke1.forgetSkill();
         poke1.checkSkill();
-
-
+        poke1.rest();
+        System.out.println(poke1.hp);
     }
 }
