@@ -8,7 +8,7 @@ public class Pokemon {
     public String name;
     final int MAX_HP, type, MAX_EP = 100;
     public int ep, hp;
-    Skills skill;
+    Skills skill = null;
                                                     // the default constructor
     public Pokemon(String name, int MAX_HP, int type) {
         ep = 100;
@@ -16,11 +16,10 @@ public class Pokemon {
         this.name = name;
         this.MAX_HP = MAX_HP;
         this.type = type;
-        this.skill = new Skills();
     }
                                                                 // convert a Pokemon to a string (for output)
     public String toString() {
-        if(skill.skillName != "") {
+        if(skill != null) {
             return name + " (" + Types.values()[type].name().toLowerCase() + "). Knows " + skill.skillName + " - AP: " + skill.attackPower + " EC: " + skill.energyCost;
         } else {
             return name + " (" + Types.values()[type].name().toLowerCase() + ")";
@@ -33,11 +32,11 @@ public class Pokemon {
     }
                                                                 // Function that enables a pokemon
     public void forgetSkill(){
-        this.skill = new Skills("", 0,0);
+        this.skill = null;
     }
                                                                 // Function that enables asking a pokemon for it's skill
     public void checkSkill(){
-        if(this.skill.skillName != ""){
+        if(this.skill != null){
             System.out.println("I know this skill " + skill.skillName);
         }
         else System.out.println("I don't know any skill ");
