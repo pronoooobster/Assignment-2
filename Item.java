@@ -17,7 +17,7 @@ public class Item {
         truncWeight /= 100;
         return itemName + " heals " + healPwr + " HP. (" + truncWeight + ")";
     }
-
+                                        // heal the pokemon
     public void heal(Pokemon pokemon) {
         pokemon.hp += healPwr;
         if(pokemon.hp > pokemon.MAX_HP) {

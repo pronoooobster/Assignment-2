@@ -2,68 +2,68 @@ import java.util.*;
 
 public class ItemBag {
 
-    Comparator<Item> compareItems = new Comparator<Item>() {
-        @Override
-        public int compare(Item o1, Item o2) {
-            return Double.compare(o2.weight, o1.weight);
-        };
-    };
-
     public final double MAX_WEIGHT;
-    private int itemsStored;
-    private double weight;
-    public SortedMap<Item, Integer> itemList = new TreeMap<Item, Integer>(compareItems);
-
-    ItemBag(double MAX_WEIGHT) {
+    public double weight;
+    public ArrayList<Item> itemList = new ArrayList<Item>();
+                                        // constructor
+    public ItemBag(double MAX_WEIGHT) {
         this.MAX_WEIGHT = MAX_WEIGHT;
-        itemsStored = 0;
         weight = 0;
     }
 
     public void AddItem(Item item) {
-        int num = ( (itemList.get(item) == null) ? 0 : itemList.get(item) );
-        ++num;
-        this.itemList.put(item, num);
-        ++itemsStored;
         weight += item.weight;
+
+        if(itemList.size() == 0) {
+            itemList.add(item);
+            return;
+        }
+                                        // insert w/ binary search
+        int lp = 0, rp = itemList.size(), midInd = 0;
+        while(lp < rp) {
+            midInd = (lp + rp) / 2;
+            double mid = (itemList.get(midInd)).weight;
+            if(mid == item.weight) {
+                break;
+            }
+                                // go left/right
+            if(mid > item.weight) {
+                if(lp == midInd) {
+                    ++midInd;
+                    break;
+                }
+                lp = midInd;
+            } else rp = midInd;
+
+        }
+        itemList.add(midInd, item);
+
     }
 
     public Item RemoveItem(int index) {
-        if(index < 0 || index >= itemsStored)
+        if(index < 0 || index >= itemList.size())
             return null;
         else {
             Item result;
-
-            result = Item.class.cast(itemList.keySet().toArray()[index]);
-
-            --itemsStored;
+            
+            result = itemList.get(index);
             weight -= result.weight;
-            itemList.put(result, itemList.get(result) - 1);
-            if(itemList.get(result) <= 0) itemList.remove(result);
+            itemList.remove(index);
 
             return result;
         }
     }
 
     public String PeakItem(int index) {
-        Item result;
-
-        result = Item.class.cast(itemList.keySet().toArray()[index]);
-        return result.toString();
+        return itemList.get(index).toString();
     }
 
     public Item PopItem() {
-        Item result;
-        if(itemsStored == 0)
-            return null;
-
+        Item result = itemList.get(0);
         
-        result = Item.class.cast(itemList.firstKey());
-
-        --itemsStored;
         weight -= result.weight;
-        itemList.put(result, itemList.get(result) - 1);
-        if(itemList.get(result) <= 0) itemList.remove(result);
+        itemList.remove(0);
+        
         return result;
     }
 }
