@@ -24,4 +24,9 @@ public class Item {
             pokemon.hp = pokemon.MAX_HP;
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }

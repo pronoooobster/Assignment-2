@@ -5,5 +5,8 @@ public class Main {
                         // test area pokemon
         Pokemon poke1 = new Pokemon("Greg", 999, 2);
         System.out.println(poke1.toString());
+
+        ItemBag bag = new ItemBag(100.0);
+        
     }
 }
