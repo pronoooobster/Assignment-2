@@ -29,6 +29,8 @@ public class Item {
 
     @Override
     public boolean equals(Object obj) {
+        if( !(obj instanceof Item) ) return false;
+
         Item it2 = Item.class.cast(obj);
         return (itemName.equals(it2.itemName) && healPwr == it2.healPwr && weight == it2.healPwr);
     }

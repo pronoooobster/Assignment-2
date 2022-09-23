@@ -17,6 +17,8 @@ public class Skills{
                                         // custom comparison function
     @Override
     public boolean equals(Object obj) {
+        if( !(obj instanceof Skills) ) return false;
+
         Skills skl2 = Skills.class.cast(obj);
         return (skillName == skl2.skillName && attackPower == skl2.attackPower && energyCost == skl2.energyCost);
     }
