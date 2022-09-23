@@ -14,6 +14,10 @@ public class Skills{
         this.energyCost = 0;
         this.attackPower = 0;
     }
-
-
+                                        // custom comparison function
+    @Override
+    public boolean equals(Object obj) {
+        Skills skl2 = Skills.class.cast(obj);
+        return (skillName == skl2.skillName && attackPower == skl2.attackPower && energyCost == skl2.energyCost);
+    }
 }
