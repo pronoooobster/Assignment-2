@@ -1,8 +1,3 @@
-import java.lang.reflect.Type;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.List;
-
 public class Pokemon {
                                                 // 0 - Fire
                                                 // 1 - Water
@@ -71,18 +66,20 @@ public class Pokemon {
         String targetStatus = "";
         double damageCoeficientToCast = TypeFunctions.battleTypes(this.type, target.type)* 10;
 
-        if (attacker.hp == 0) {
-            return("Attack failed." + attacker.name + " fainted.");
+        if (attacker.hp <= 0) {
+            return("Attack failed. " + attacker.name + " fainted.");
         }
-            else if (target.hp == 0) {
+            else if (target.hp <= 0) {
                 return("Attack failed." + target.name + " fainted.");
         }
                 else if (attacker.skill == null) {
-                    return("Attack failed " + attacker.name + " does not know a skill.");
+                    return("Attack failed. " + attacker.name + " does not know a skill.");
         }
                     else if (attacker.skill != null && attacker.ep < attacker.skill.energyCost) {
-                            return("Attack failed." + attacker.name + " lacks energy" + attacker.ep + skill.energyCost);
+                            return("Attack failed. " + attacker.name + " lacks energy " + attacker.ep + " " +skill.energyCost);
         }
+
+
 
         else {
             target.hp -= attacker.skill.attackPower * TypeFunctions.battleTypes(this.type, target.type);
