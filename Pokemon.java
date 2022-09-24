@@ -1,4 +1,7 @@
-
+import java.lang.reflect.Type;
+import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Pokemon {
                                                 // 0 - Fire
@@ -30,16 +33,16 @@ public class Pokemon {
     public void learnSkill(String skillName, int attackPower, int energyCost){
         this.skill = new Skills(skillName, attackPower, energyCost);
     }
-                                                                // Function that enables a pokemon
+                                                                // Function that enables a pokemon to forget a skill
     public void forgetSkill(){
         this.skill = null;
     }
                                                                 // Function that enables asking a pokemon for it's skill
-    public void checkSkill(){
+    public String checkSkill(){
         if(this.skill != null){
-            System.out.println("I know this skill " + skill.skillName);
+            return ("I know this skill " + skill.skillName);
         }
-        else System.out.println("I don't know any skill ");
+        else return ("I don't know any skill ");
     }
                                                                 // Function that enables a pokemon to rest and recover health
     public void rest(){
@@ -63,4 +66,45 @@ public class Pokemon {
             }
         }
     }
+
+    public String attack(Pokemon attacker, Pokemon target) {
+        String targetStatus = "";
+        double damageCoeficientToCast = TypeFunctions.battleTypes(this.type, target.type)* 10;
+
+        if (attacker.hp == 0) {
+            return("Attack failed." + attacker.name + " fainted.");
+        }
+            else if (target.hp == 0) {
+                return("Attack failed." + target.name + " fainted.");
+        }
+                else if (attacker.skill == null) {
+                    return("Attack failed " + attacker.name + " does not know a skill.");
+        }
+                    else if (attacker.skill != null && attacker.ep < attacker.skill.energyCost) {
+                            return("Attack failed." + attacker.name + " lacks energy" + attacker.ep + skill.energyCost);
+        }
+
+        else {
+            target.hp -= attacker.skill.attackPower * TypeFunctions.battleTypes(this.type, target.type);
+        }
+
+        if (target.hp <= 0) {
+            targetStatus = target.name + " has " + "0 HP left. " + target.name + " faints.";
+        }
+        else{
+            targetStatus = target.name + " has " + target.hp + " HP left.";
+        }
+        switch ((int)damageCoeficientToCast) {
+            case 10: return(attacker.name + " uses " + attacker.skill.skillName + " on " + target.name +"\n" + targetStatus);
+            case 20: return(attacker.name + " uses " + attacker.skill.skillName + " on " + target.name + " It’s super effective!\n" + targetStatus);
+            case 5: return (attacker.name + " uses " + attacker.skill.skillName + " on " + target.name + " It’s not very effective...\n" + targetStatus);
+        }
+        return null;
+    }
 }
+
+/* Necessary changes:
+* IS IT REALLY NECESSARY? -> Add a function that returns a boolean value to check if the pokemon has fainted
+* DONE Change prints for returns
+* DONE In the attack functions the ifs should be nested
+*/
