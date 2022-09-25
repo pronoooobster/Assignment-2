@@ -70,7 +70,7 @@ public class Pokemon {
             return("Attack failed. " + attacker.name + " fainted.");
         }
             else if (target.hp <= 0) {
-                return("Attack failed." + target.name + " fainted.");
+                return("Attack failed. " + target.name + " fainted.");
         }
                 else if (attacker.skill == null) {
                     return("Attack failed. " + attacker.name + " does not know a skill.");
