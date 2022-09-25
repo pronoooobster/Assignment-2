@@ -21,9 +21,9 @@ public class Item {
     }
                                         // heal the pokemon
     public void heal(Pokemon pokemon) {
-        pokemon.hp += healPwr;
-        if(pokemon.hp > pokemon.MAX_HP) {
-            pokemon.hp = pokemon.MAX_HP;
+        pokemon.setCurrentHP( pokemon.getCurrentHP() + healPwr );
+        if(pokemon.getCurrentHP() > pokemon.getMAX_HP()) {
+            pokemon.setCurrentHP(pokemon.getMAX_HP());
         }
     }
 
