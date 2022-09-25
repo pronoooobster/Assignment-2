@@ -1,3 +1,4 @@
+
 public class Item {
     public final String itemName;
     public final int healPwr;
@@ -11,6 +12,7 @@ public class Item {
                                         // convert to string for printing
     public String toString() {
         double truncWeight;
+                            // truncation to 2 digits
         truncWeight = weight;
         truncWeight *= 100;
         truncWeight = Math.floor(truncWeight);
@@ -27,6 +29,9 @@ public class Item {
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if( !(obj instanceof Item) ) return false;
+
+        Item it2 = Item.class.cast(obj);
+        return (itemName.equals(it2.itemName) && healPwr == it2.healPwr && weight == it2.healPwr);
     }
 }

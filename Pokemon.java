@@ -98,6 +98,18 @@ public class Pokemon {
         }
         return null;
     }
+
+                                                    // custom comparison function
+    @Override
+    public boolean equals(Object obj) {
+        Pokemon pok2 = Pokemon.class.cast(obj);
+        if( !(obj instanceof Pokemon) ) return false;
+
+        boolean skillEquals = ( (this.skill == null || pok2.skill == null) ? this.skill == pok2.skill : this.skill.equals(pok2.skill) );
+        
+        return (name.equals(pok2.name) && type == pok2.type && skillEquals &&
+                 hp == pok2.hp && MAX_HP == pok2.MAX_HP && ep == pok2.ep);
+    }
 }
 
 /* Necessary changes:
