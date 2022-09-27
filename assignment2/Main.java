@@ -1,4 +1,4 @@
-
+package assignment2;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,7 +11,7 @@ public class Main {
         poke2.learnSkill("Smoke", 100, 1);
         System.out.println(poke2.toString());
 
-        System.out.println(poke1.attack(poke1, poke2));
-        System.out.println(poke1.attack(poke2, poke1));
+        System.out.println(poke1.attack(poke2));
+        System.out.println(poke1.attack(poke1));
     }
 }

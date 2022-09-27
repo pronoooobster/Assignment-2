@@ -1,3 +1,4 @@
+package assignment2;
 public class Pokemon {
                                                 // 0 - Fire
                                                 // 1 - Water
@@ -33,11 +34,11 @@ public class Pokemon {
         this.skill = null;
     }
                                                                 // Function that enables asking a pokemon for it's skill
-    public String checkSkill(){
+    public Boolean knowsSkill(){
         if(this.skill != null){
-            return ("I know this skill " + skill.skillName);
+            return (true);
         }
-        else return ("I don't know any skill ");
+        else return (false);
     }
                                                                 // Function that enables a pokemon to rest and recover health
     public void rest(){
@@ -53,7 +54,7 @@ public class Pokemon {
         hp -= totalDamage;
     }
                                                                 // Function that enables a pokemon to recover EP
-    public void recoverEP(){
+    public void recoverEnergy(){
         if(hp != 0){
             ep += 25;
             if(ep > MAX_EP){
@@ -62,27 +63,28 @@ public class Pokemon {
         }
     }
 
-    public String attack(Pokemon attacker, Pokemon target) {
+    public String attack(Pokemon target) {
         String targetStatus = "";
         double damageCoeficientToCast = TypeFunctions.battleTypes(this.type, target.getTypeRaw())* 10;
 
-        if (attacker.getCurrentHP() <= 0) {
-            return("Attack failed. " + attacker.getName() + " fainted.");
+        if (this.getCurrentHP() <= 0) {
+            return("Attack failed. " + this.getName() + " fainted.");
         }
             else if (target.getCurrentHP() <= 0) {
                 return("Attack failed. " + target.getName() + " fainted.");
         }
-                else if (attacker.getSkill() == null) {
-                    return("Attack failed. " + attacker.getName() + " does not know a skill.");
+                else if (this.getSkill() == null) {
+                    return("Attack failed. " + this.getName() + " does not know a skill.");
         }
-                    else if (attacker.getSkill() != null && attacker.getEnergy() < attacker.getSkill().energyCost) {
-                            return("Attack failed. " + attacker.getName() + " lacks energy " + attacker.getEnergy() + " " + this.skill.energyCost);
+                    else if (this.getSkill() != null && this.getEnergy() < this.getSkill().energyCost) {
+                            return("Attack failed. " + this.getName() + " lacks energy " + this.getEnergy() + " " + this.skill.energyCost);
         }
 
 
 
         else {
-            target.setCurrentHP((int) (target.getCurrentHP() - attacker.getSkill().attackPower * TypeFunctions.battleTypes(this.type, target.getTypeRaw())) );
+            target.setCurrentHP((int) Math.round(target.getCurrentHP() - this.getSkill().attackPower * TypeFunctions.battleTypes(this.type, target.getTypeRaw())) );
+            this.ep -= this.skill.energyCost;
         }
 
         if (target.getCurrentHP() <= 0) {
@@ -92,15 +94,14 @@ public class Pokemon {
             targetStatus = target.getName() + " has " + target.getCurrentHP() + " HP left.";
         }
         switch ((int)damageCoeficientToCast) {
-            case 10: return(attacker.getName() + " uses " + attacker.getSkill().skillName + " on " + target.getName() +"\n" + targetStatus);
-            case 20: return(attacker.getName() + " uses " + attacker.getSkill().skillName + " on " + target.getName() + " It’s super effective!\n" + targetStatus);
-            case 5: return (attacker.getName() + " uses " + attacker.getSkill().skillName + " on " + target.getName() + " It’s not very effective...\n" + targetStatus);
+            case 10: return(this.getName() + " uses " + this.getSkill().skillName + " on " + target.getName() +".\n" + targetStatus);
+            case 20: return(this.getName() + " uses " + this.getSkill().skillName + " on " + target.getName() + ". It is super effective!\n" + targetStatus);
+            case 5: return (this.getName() + " uses " + this.getSkill().skillName + " on " + target.getName() + ". It is not very effective...\n" + targetStatus);
         }
         return null;
     }
 
                                                     // custom comparison function
-    @Override
     public boolean equals(Object obj) {
         Pokemon pok2 = Pokemon.class.cast(obj);
         if( !(obj instanceof Pokemon) ) return false;
@@ -109,6 +110,11 @@ public class Pokemon {
         
         return (name.equals(pok2.getName()) && this.getType() == pok2.getType() && skillEquals &&
                  hp == pok2.getCurrentHP() && MAX_HP == pok2.getMAX_HP() && ep == pok2.getEnergy());
+    }
+
+
+    public String useItem(Item item){
+        return(item.heal(this));
     }
 
                                                     // GETers and SETers here ->

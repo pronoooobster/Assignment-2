@@ -1,3 +1,5 @@
+package assignment2;
+import java.text.DecimalFormat;
 
 public class Item {
     public final String itemName;
@@ -11,23 +13,29 @@ public class Item {
     }
                                         // convert to string for printing
     public String toString() {
-        double truncWeight;
+        double truncWeight = weight;
                             // truncation to 2 digits
-        truncWeight = weight;
         truncWeight *= 100;
-        truncWeight = Math.floor(truncWeight);
-        truncWeight /= 100;
-        return itemName + " heals " + healPwr + " HP. (" + truncWeight + ")";
+        int truncInt = (int) truncWeight;
+        truncWeight = ((double) truncInt) / 100;
+        String result = String.format("%.2f", truncWeight);
+        return itemName + " heals " + healPwr + " HP. (" + result + ")";
     }
                                         // heal the pokemon
-    public void heal(Pokemon pokemon) {
+    public String heal(Pokemon pokemon) {
+                        // if hp is already full
+        if(pokemon.getCurrentHP() == pokemon.getMAX_HP()) {
+            return pokemon.getName() + " could not use " + this.itemName + ". HP is already full.";
+        }
+
+        int hpHealed = Math.min(pokemon.getMAX_HP() - pokemon.getCurrentHP(), this.healPwr);
         pokemon.setCurrentHP( pokemon.getCurrentHP() + healPwr );
         if(pokemon.getCurrentHP() > pokemon.getMAX_HP()) {
             pokemon.setCurrentHP(pokemon.getMAX_HP());
         }
+        return pokemon.getName() + " used " + this.itemName + ". It healed " + hpHealed + " HP.";
     }
 
-    @Override
     public boolean equals(Object obj) {
         if( !(obj instanceof Item) ) return false;
 

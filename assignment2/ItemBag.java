@@ -1,3 +1,5 @@
+package assignment2;
+
 import java.util.*;
 
 public class ItemBag {
@@ -11,7 +13,7 @@ public class ItemBag {
         weight = 0;
     }
 
-    public void AddItem(Item item) {
+    public int addItem(Item item) {
         weight += item.weight;
 
         if(itemList.size() == 0) {
@@ -60,10 +62,14 @@ public class ItemBag {
 
     public Item PopItem() {
         Item result = itemList.get(0);
-        
+
         weight -= result.weight;
         itemList.remove(0);
         
         return result;
+    }
+
+    public int getNumOfItems() {
+        return (itemList.size());
     }
 }
