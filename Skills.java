@@ -1,3 +1,5 @@
+
+
 public class Skills{
     public final String skillName;
     public final int attackPower;

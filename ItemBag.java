@@ -1,3 +1,5 @@
+
+
 import java.util.*;
 
 public class ItemBag {
@@ -11,12 +13,15 @@ public class ItemBag {
         weight = 0;
     }
 
-    public void AddItem(Item item) {
+    public int AddItem(Item item) {
+        if(weight + item.weight > MAX_WEIGHT) {
+            return -1;
+        }
         weight += item.weight;
 
         if(itemList.size() == 0) {
             itemList.add(item);
-            return;
+            return 0;
         }
                                         // insert w/ binary search
         int lp = 0, rp = itemList.size(), midInd = 0;
@@ -37,7 +42,7 @@ public class ItemBag {
 
         }
         itemList.add(midInd, item);
-
+        return midInd;
     }
 
     public Item RemoveItem(int index) {

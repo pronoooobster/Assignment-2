@@ -1,3 +1,5 @@
+
+
 /*Function that will return the damage multiplier when called in battle, based on the attacker and defender type */
 
 public class TypeFunctions {
