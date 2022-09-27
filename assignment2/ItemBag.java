@@ -14,6 +14,11 @@ public class ItemBag {
     }
 
     public int addItem(Item item) {
+
+        if(weight + item.weight > MAX_WEIGHT) {
+            return -1;
+        }
+
         weight += item.weight;
 
         if(itemList.size() == 0) {
