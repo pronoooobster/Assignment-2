@@ -37,9 +37,10 @@ public class Item {
     }
 
     public boolean equals(Object obj) {
+        if(obj == null) return false;
         if( !(obj instanceof Item) ) return false;
 
-        Item it2 = Item.class.cast(obj);
-        return (itemName.equals(it2.itemName) && healPwr == it2.healPwr && weight == it2.healPwr);
+        Item it2 = (Item) obj;
+        return (itemName.equals(it2.itemName) && healPwr == it2.healPwr && weight == it2.weight);
     }
 }

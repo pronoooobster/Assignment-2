@@ -4,9 +4,16 @@ import java.util.*;
 
 public class ItemBag {
 
-    public final double MAX_WEIGHT;
-    public double weight;
-    public ArrayList<Item> itemList = new ArrayList<Item>();
+    private final double MAX_WEIGHT;
+    private double weight;
+    public double getCurrentWeight() {
+        return this.weight;
+    }
+    public double getMaxWeight() {
+        return this.MAX_WEIGHT;
+    }
+
+    public ArrayList<Item> itemList = new ArrayList<>();
                                         // constructor
     public ItemBag(double MAX_WEIGHT) {
         this.MAX_WEIGHT = MAX_WEIGHT;
@@ -23,7 +30,7 @@ public class ItemBag {
 
         if(itemList.size() == 0) {
             itemList.add(item);
-            return;
+            return 0;
         }
                                         // insert w/ binary search
         int lp = 0, rp = itemList.size(), midInd = 0;
@@ -44,10 +51,10 @@ public class ItemBag {
 
         }
         itemList.add(midInd, item);
-
+        return midInd;
     }
 
-    public Item RemoveItem(int index) {
+    public Item removeItemAt(int index) {
         if(index < 0 || index >= itemList.size())
             return null;
         else {
@@ -61,11 +68,19 @@ public class ItemBag {
         }
     }
 
-    public String PeakItem(int index) {
-        return itemList.get(index).toString();
+    public String peekItemAt(int index) {
+        if(index < 0 || index >= itemList.size())
+            return "";
+
+        else {return itemList.get(index).toString();}
     }
 
-    public Item PopItem() {
+    public Item popItem() {
+
+        if(itemList.size() == 0){
+            return null;
+        }
+
         Item result = itemList.get(0);
 
         weight -= result.weight;

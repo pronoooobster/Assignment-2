@@ -103,12 +103,13 @@ public class Pokemon {
 
                                                     // custom comparison function
     public boolean equals(Object obj) {
-        Pokemon pok2 = Pokemon.class.cast(obj);
+        if(obj == null) return false;
         if( !(obj instanceof Pokemon) ) return false;
+        Pokemon pok2 = (Pokemon) obj;
 
         boolean skillEquals = ( (this.skill == null || pok2.getSkill() == null) ? this.skill == pok2.getSkill() : this.skill.equals(pok2.getSkill()) );
-        
-        return (name.equals(pok2.getName()) && this.getType() == pok2.getType() && skillEquals &&
+
+        return (name.equals(pok2.getName()) && this.getTypeRaw() == pok2.getTypeRaw() && skillEquals &&
                  hp == pok2.getCurrentHP() && MAX_HP == pok2.getMAX_HP() && ep == pok2.getEnergy());
     }
 
@@ -153,6 +154,7 @@ public class Pokemon {
     }
 
     public void setCurrentHP(int hp) {
+        hp = Math.max(hp, 0);
         this.hp = hp;
     }
 
