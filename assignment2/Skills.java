@@ -1,3 +1,4 @@
+package assignment2;
 public class Skills{
     public final String skillName;
     public final int attackPower;
@@ -15,7 +16,6 @@ public class Skills{
         this.attackPower = 0;
     }
                                         // custom comparison function
-    @Override
     public boolean equals(Object obj) {
         if( !(obj instanceof Skills) ) return false;
 
